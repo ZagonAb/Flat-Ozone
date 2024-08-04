@@ -6,7 +6,7 @@
 # Característica principal
 - Diseño Minimalista: Un enfoque limpio y simple, con un uso eficiente de espacio y elementos visuales.
 
-# System icono
+# Iconos del sistema
 - "Para que los íconos del sistema coincidan con su colección de juegos, verifique el shortName de la colección en el archivo metadata.txt y asegúrese de que coincida con el ícono correspondiente en la carpeta assets/systems."
 
   # Capturas
