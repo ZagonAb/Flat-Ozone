@@ -7,3 +7,5 @@
 - Diseño Minimalista: Un enfoque limpio y simple, con un uso eficiente de espacio y elementos visuales.
 
   # Capturas
+![1](https://github.com/user-attachments/assets/412f7526-1a9e-4993-bc17-355dd9c09ba9)
+
