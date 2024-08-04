@@ -10,3 +10,6 @@
 ![1](https://github.com/user-attachments/assets/412f7526-1a9e-4993-bc17-355dd9c09ba9)
 
 ![2](https://github.com/user-attachments/assets/1b6cbe1c-da2a-4e2c-9eeb-dc4ea59240fc)
+
+# Licencia
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Licencia Creative Commons" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br /><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"></a>
