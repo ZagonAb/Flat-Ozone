@@ -9,3 +9,4 @@
   # Capturas
 ![1](https://github.com/user-attachments/assets/412f7526-1a9e-4993-bc17-355dd9c09ba9)
 
+![2](https://github.com/user-attachments/assets/1b6cbe1c-da2a-4e2c-9eeb-dc4ea59240fc)
