@@ -1,6 +1,6 @@
 # Flat Ozone Theme
 
-- El tema **Flat Ozone** es una interfaz moderna y elegante inspirada en el popular tema **ozone** de retrorrch, pero con un diseño más minimalista y sin efectos visuales complejos.
+- El tema **Flat Ozone** es una interfaz moderna y elegante inspirada en el popular tema **ozone** de retroarch, pero con un diseño más minimalista y sin efectos visuales complejos.
 - Este tema está diseñado para ofrecer una experiencia de navegación fluida y centrada en el contenido, ideal para entusiastas de los juegos retro.
   
 # Característica principal:
