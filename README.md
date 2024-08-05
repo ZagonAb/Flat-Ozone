@@ -11,6 +11,8 @@
   # Fuente del tema
 - Este tema utiliza la tipografía [Titilium Web Regular](https://fonts.google.com/specimen/Titillium%2BWeb) protegida bajo la [licencia Open Font License](https://openfontlicense.org/).
 
+# Iconos Monochrome de RetroArch: Agradecemos a los diseñadores de los iconos monochrome utilizados en este tema.
+[repositorio de RetroArch](https://github.com/libretro/retroarch-assets).
   # Capturas
 ![1](https://github.com/user-attachments/assets/412f7526-1a9e-4993-bc17-355dd9c09ba9)
 
