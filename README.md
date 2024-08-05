@@ -8,6 +8,8 @@
 
 # Iconos del sistema:
 - Para que los íconos del sistema coincidan con su colección de juegos, verifique el **shortName** de la colección en el archivo **metadata.txt** y asegúrese de que coincida con el ícono correspondiente en la carpeta "**assets/systems/**"
+  # Fuente del tema
+- Este tema utiliza la tipografía [Titilium Web Regular](https://fonts.google.com/specimen/Titillium%2BWeb).protegida bajo la [licencia Open Font License](https://openfontlicense.org/).
 
   # Capturas
 ![1](https://github.com/user-attachments/assets/412f7526-1a9e-4993-bc17-355dd9c09ba9)
