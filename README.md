@@ -5,7 +5,7 @@
   
 # Característica principal:
 - Diseño Minimalista: Un enfoque limpio y simple, con un uso eficiente de espacio y elementos visuales.
-- 
+
 # Iconos Monochrome de RetroArch:
 - Agradecemos a los diseñadores de los iconos monochrome utilizados en este tema.
 [repositorio de RetroArch](https://github.com/libretro/retroarch-assets).
