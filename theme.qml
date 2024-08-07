@@ -31,7 +31,7 @@ FocusScope {
                 color:  "#0e0e0e"
                 opacity: 1.0
                 visible: true;
-
+                    
                 ListView {
                     id: listView
                     width: parent.width / 4
@@ -40,9 +40,11 @@ FocusScope {
                     clip: true
                     model: api.collections
                     focus: true
-
                     property string currentShortName: ""
                     property string currentName: ""
+                    property int maxVisibleItems: Math.floor(height / 40)
+                    property int midIndex: Math.floor(maxVisibleItems / 2)
+                    property int adjustedIndex: Math.max(0, currentIndex - midIndex)
 
                     delegate: Rectangle {
                         width: listView.width
@@ -50,19 +52,17 @@ FocusScope {
                         color: listView.currentIndex === index && listView.focus ? "#303030" : "transparent"
                         border.width: 2
                         border.color: listView.currentIndex === index && listView.focus ? "#303030" : "transparent"
-
                         Row {
                             id: contentRow
                             anchors.centerIn: parent
                             spacing: 10
                             width: listView.focus ? parent.width : 40
-
                             Rectangle {
                                 width: 0.5
                                 height: parent.height
                                 color: "transparent"
                             }
-
+                            
                             Image {
                                 source: "assets/systems/" + modelData.shortName + ".png"
                                 width: 40
@@ -71,11 +71,11 @@ FocusScope {
                                 anchors.verticalCenter: parent.verticalCenter
                                 sourceSize { width: 40; height: 40 }
                             }
-
+                            
                             Text {
                                 visible: listView.focus
                                 text: modelData.name
-                                font.pixelSize: Math.min(listView.height * 0.03, listView.width / 2)
+                                font.pixelSize: Math.min(listView.height * 0.03, listView.width / 20)
                                 elide: listView.focus ? Text.ElideRight : Text.ElideNone
                                 color: "#c0c0c0"
                                 anchors.verticalCenter: parent.verticalCenter
@@ -84,42 +84,40 @@ FocusScope {
                             }
                         }
                     }
-
                     Behavior on width {
                         NumberAnimation {
                             duration: 300
                             easing.type: Easing.InOutQuad
                         }
                     }
-
                     Keys.onUpPressed: {
-                        if (listView.currentIndex === 0) {
-                            listView.currentIndex = listView.count -1;
-                        } else {
-                            listView.currentIndex -= 1;
+                        if (currentIndex > 0) {
+                            decrementCurrentIndex()
                         }
                     }
-
                     Keys.onDownPressed: {
-                        if (listView.currentIndex === listView.count - 1) {
-                            listView.currentIndex = 0
-                        } else {
-                            listView.currentIndex += 1;
+                        if (currentIndex < count - 1) {
+                            incrementCurrentIndex()
                         }
                     }
-
-
                     Keys.onRightPressed: {
                         listView.width = parent.width / 8
                         gameListView.focus = true
                         gameListView.currentIndex = 0
                     }
-
                     onCurrentIndexChanged: {
                         const selectedCollection = api.collections.get(currentIndex)
                         gameListView.model = selectedCollection.games
                         currentShortName = selectedCollection.shortName
                         currentName = selectedCollection.name
+                        
+                        if (currentIndex > midIndex && currentIndex < count - midIndex) {
+                            contentY = adjustedIndex * 40
+                        } else if (currentIndex <= midIndex) {
+                            contentY = 0
+                        } else {
+                            contentY = (count - maxVisibleItems) * 40
+                        }
                     }
                 }
 
@@ -146,7 +144,7 @@ FocusScope {
                             spacing: 10
 
                             Rectangle {
-                                width: 0.5
+                                width: 20.0
                                 height: parent.height
                                 color: "transparent"
                             }
@@ -165,7 +163,7 @@ FocusScope {
                                 width: gameListView.width - 40
                                 elide: Text.ElideRight
                                 text: modelData.title
-                                font.pixelSize: Math.min(gameListView.height *0.03, gameListView.width / 2)
+                                font.pixelSize: Math.min(gameListView.height *0.03, gameListView.width / 20)
                                 font.family: fontLoader.name
                                 color: "#c0c0c0"
                                 anchors.verticalCenter: parent.verticalCenter
@@ -371,7 +369,7 @@ FocusScope {
                         color: "white"
                         font.bold: true
                         font.family: fontLoader.name
-                        font.pixelSize: Math.min(topBar.height / 2, topBar.width / 2)
+                        font.pixelSize: Math.min(topBar.height / 2, topBar.width / 40)
                         anchors.verticalCenter: parent.verticalCenter
                     }
                 }
@@ -386,7 +384,7 @@ FocusScope {
                         Text {
                             text: Qt.formatDateTime(new Date(), "dd-MM HH:mm")
                             color: "white"
-                            font.pixelSize: Math.min(topBar.height / 3, topBar.width / 2)
+                            font.pixelSize: Math.min(topBar.height / 3, topBar.width / 40)
                             anchors.verticalCenter: parent.verticalCenter
                         }
 
@@ -410,7 +408,7 @@ FocusScope {
                                 }
                             }
                             color: "white"
-                            font.pixelSize: Math.min(topBar.height / 3, topBar.width / 2)
+                            font.pixelSize: Math.min(topBar.height / 3, topBar.width / 40)
                             anchors.verticalCenter: parent.verticalCenter
                         }
 
@@ -442,17 +440,17 @@ FocusScope {
                         spacing: 5 
                         Image {
                             source: "assets/theme-icons/back.png"
-                            width: 25 
-                            height: 25 
+                            width: Math.min(parent.height * 0.95, parent.width * 0.95)
+                            height: Math.min(parent.height * 0.95, parent.width * 0.95) 
                             anchors.verticalCenter: parent.verticalCenter
-                            sourceSize { width: 25; height: 25 }
+                            sourceSize { width: 64; height: 64 }
                         }
 
                         Text {
                             text: " Back"
                             color: "white"
                             font.family: fontLoader.name
-                            font.pixelSize: Math.min(bottomBar.height / 3, bottomBar.width / 2)
+                            font.pixelSize: Math.min(bottomBar.height / 3, bottomBar.width / 40)
                             anchors.verticalCenter: parent.verticalCenter
                         }
                     }
@@ -461,17 +459,17 @@ FocusScope {
                         spacing: 5
                         Image {
                             source: "assets/theme-icons/ok.png"
-                            width: 25 
-                            height: 25
+                            width: Math.min(parent.height * 0.95, parent.width * 0.95)
+                            height: Math.min(parent.height * 0.95, parent.width * 0.95)
                             anchors.verticalCenter: parent.verticalCenter
-                            sourceSize { width: 25; height: 25 }
+                            sourceSize { width: 64; height: 64 }
                         }
 
                         Text {
                             text: " OK"
                             color: "white"
                             font.family: fontLoader.name
-                            font.pixelSize: Math.min(bottomBar.height / 3, bottomBar.width / 2)
+                            font.pixelSize: Math.min(bottomBar.height / 3, bottomBar.width / 40)
                             anchors.verticalCenter: parent.verticalCenter
                         }
                     }
