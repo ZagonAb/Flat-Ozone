@@ -212,7 +212,8 @@ FocusScope {
                         if (gameListView.focus) {
                             infogame.selectedGame = model.get(currentIndex)
                             indexToPosition = currentIndex
-                            updatePlayTime(); 
+                            updatePlayTime();
+                            updateLastPlayed();
                         }
                     }
 
@@ -301,12 +302,12 @@ FocusScope {
                             anchors.left: parent.left
                             anchors.leftMargin: 20
                             spacing: 10
-                            anchors.bottomMargin: 40
+                            anchors.bottomMargin: 30
                             width: parent.width - 40
 
                             Text {
                                 text: "Games:\n" + (gameListView.count > 0 ? (gameListView.currentIndex + 1) + "/" + gameListView.count : "0/0")
-                                font.pixelSize: Math.min(infogame.height / 28, infogame.width / 2)
+                                font.pixelSize: Math.min(infogame.height / 28, infogame.width / 18)
                                 color: "#c0c0c0"
                                 width: parent.width
                                 wrapMode: Text.Wrap
@@ -315,7 +316,7 @@ FocusScope {
                             Text {
                                 id: collectionText
                                 text: "Collection:\n" + (api.collections.get(listView.currentIndex) ? api.collections.get(listView.currentIndex).shortName : "None")
-                                font.pixelSize: Math.min(infogame.height / 28, infogame.width / 2)
+                                font.pixelSize: Math.min(infogame.height / 28, infogame.width / 18)
                                 color: "#c0c0c0"
                                 width: parent.width
                                 wrapMode: Text.Wrap
@@ -324,7 +325,7 @@ FocusScope {
                             Text {
                                 id: playTimeText
                                 text: "Play Time:"
-                                font.pixelSize: Math.min(infogame.height / 28, infogame.width / 2)
+                                font.pixelSize: Math.min(infogame.height / 28, infogame.width / 18)
                                 color: "#c0c0c0"
                                 width: parent.width
                                 wrapMode: Text.Wrap
@@ -332,8 +333,8 @@ FocusScope {
 
                             Text {
                                 id: lastPlayedText
-                                text: "Last Played:\n" + (infogame.selectedGame ? infogame.selectedGame.lastPlayed : "N/A")
-                                font.pixelSize: Math.min(infogame.height / 28, infogame.width / 2)
+                                text: "Last Played:"
+                                font.pixelSize: Math.min(infogame.height / 28, infogame.width / 18)
                                 color: "#c0c0c0"
                                 width: parent.width
                                 wrapMode: Text.Wrap
@@ -496,6 +497,18 @@ FocusScope {
         } else {
             
             playTimeText.text = "Play Time: 00:00:00\n";
+        }
+    }
+
+    function updateLastPlayed() {
+        var game = gameListView.model.get(gameListView.currentIndex);
+        
+        if (game.lastPlayed.getTime()) {
+            var lastPlayedDate = new Date(game.lastPlayed);
+            var formattedDate = Qt.formatDateTime(lastPlayedDate, "yyyy-MM-dd HH:mm");
+            lastPlayedText.text = "Last Played:\n" + formattedDate;
+        } else {
+            lastPlayedText.text = "Last Played:\nN/A";
         }
     }
 }
