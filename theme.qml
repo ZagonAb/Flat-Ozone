@@ -646,6 +646,25 @@ FocusScope {
                     Row {
                         spacing: 5 
                         Image {
+                            source: "assets/theme-icons/favorite.png"
+                            width: Math.min(parent.height * 0.95, parent.width * 0.95)
+                            height: Math.min(parent.height * 0.95, parent.width * 0.95) 
+                            anchors.verticalCenter: parent.verticalCenter
+                            sourceSize { width: 64; height: 64 }
+                        }
+
+                        Text {
+                            text: " Favorite"
+                            color: "white"
+                            font.family: fontLoader.name
+                            font.pixelSize: Math.min(bottomBar.height / 3, bottomBar.width / 40)
+                            anchors.verticalCenter: parent.verticalCenter
+                        }
+                    }
+
+                    Row {
+                        spacing: 5 
+                        Image {
                             source: "assets/theme-icons/back.png"
                             width: Math.min(parent.height * 0.95, parent.width * 0.95)
                             height: Math.min(parent.height * 0.95, parent.width * 0.95) 
