@@ -91,7 +91,6 @@ FocusScope {
             }
         }
     }
-
     Item {
         anchors.fill: parent
         Rectangle {
@@ -131,7 +130,8 @@ FocusScope {
                             anchors.verticalCenter: parent.verticalCenter
                             width: 24
                             height: 24
-                            sourceSize { width: 30; height: 30 }
+                            smooth: true
+                            sourceSize { width: 40; height: 40 }
                         }
 
                         Text {
@@ -173,9 +173,9 @@ FocusScope {
                     focus: true
                     property string currentShortName: ""
                     property string currentName: ""
-                    property int maxVisibleItems: Math.floor(height / 40)
-                    property int midIndex: Math.floor(maxVisibleItems / 2)
-                    property int adjustedIndex: Math.max(0, currentIndex - midIndex)
+                    property int itemHeight: 40
+                    property int visibleItemCount: Math.floor(height / itemHeight)
+                    property int indexToPosition: -1
 
                     delegate: Rectangle {
                         width: listView.width
@@ -200,6 +200,7 @@ FocusScope {
                                 height: 40
                                 fillMode: Image.PreserveAspectFit
                                 anchors.verticalCenter: parent.verticalCenter
+                                smooth: true
                                 sourceSize { width: 40; height: 40 }
                             }
                             
@@ -215,23 +216,25 @@ FocusScope {
                             }
                         }
                     }
-
                     Behavior on width {
                         NumberAnimation {
                             duration: 300
                             easing.type: Easing.InOutQuad
                         }
                     }
-
                     Keys.onUpPressed: {
                         if (currentIndex > 0) {
-                            decrementCurrentIndex()
+                            currentIndex--
+                        } else {
+                            currentIndex = count - 1
                         }
                     }
 
                     Keys.onDownPressed: {
                         if (currentIndex < count - 1) {
-                            incrementCurrentIndex()
+                            currentIndex++
+                        } else {
+                            currentIndex = 0
                         }
                     }
 
@@ -246,14 +249,17 @@ FocusScope {
                         gameListView.model = selectedCollection.games
                         currentShortName = selectedCollection.shortName
                         currentName = selectedCollection.name
-                        
-                        if (currentIndex > midIndex && currentIndex < count - midIndex) {
-                            contentY = adjustedIndex * 40
-                        } else if (currentIndex <= midIndex) {
-                            contentY = 0
-                        } else {
-                            contentY = (count - maxVisibleItems) * 40
+                        indexToPosition = currentIndex
+                    }
+
+                    onIndexToPositionChanged: {
+                        if (indexToPosition >= 0) {
+                            positionViewAtIndex(indexToPosition, ListView.Center)
                         }
+                    }
+
+                    Behavior on indexToPosition {
+                        NumberAnimation { duration: 200 }
                     }
                 }
 
@@ -703,7 +709,6 @@ FocusScope {
             }
         }
     }
-
     function updateGameInfo() {
         var game = gameListView.model.get(gameListView.currentIndex);
         
