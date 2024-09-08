@@ -91,6 +91,7 @@ FocusScope {
             }
         }
     }
+
     Item {
         anchors.fill: parent
         Rectangle {
@@ -374,42 +375,57 @@ FocusScope {
 
                     Keys.onPressed: {
                         if (!event.isAutoRepeat && api.keys.isAccept(event)) {
-                            var selectedGame = gameListView.model.get(gameListView.currentIndex);
-                            var selectedTitle = selectedGame.title;
-                            var gamesArray = api.allGames.toVarArray();
-                            var gameFound = gamesArray.find(function(game) {
-                                return game.title === selectedTitle;
-                            });
-                            if (gameFound) {
-                                gameFound.launch();
-                            }
-                        } else if (api.keys.isDetails(event)) {
                             event.accepted = true;
                             var selectedGame = gameListView.model.get(gameListView.currentIndex);
-                            var selectedTitle = selectedGame.title;
-                            var gamesArray = api.allGames.toVarArray();
-                            var gameFound = gamesArray.find(function(game) {
-                                return game.title === selectedTitle;
-                            });
+                            var collectionName = getNameCollecForGame(selectedGame);
+                            for (var i = 0; i < api.collections.count; ++i) {
+                                var collection = api.collections.get(i);
+                                if (collection.name === collectionName) {
+                                    for (var j = 0; j < collection.games.count; ++j) {
+                                        var game = collection.games.get(j);
+                                        if (game.title === selectedGame.title) {
+                                            game.launch();
+                                            break;
+                                        }
+                                    }
+                                    break;
+                                }
+                            }
+                        } else if (!event.isAutoRepeat && api.keys.isDetails(event)) {
+                            event.accepted = true;
+                            var selectedGame = gameListView.model.get(gameListView.currentIndex);
+                            var collectionName = getNameCollecForGame(selectedGame);
+                            var gameFound = null;
+                            for (var i = 0; i < api.collections.count; ++i) {
+                                var collection = api.collections.get(i);
+                                if (collection.name === collectionName) {
+                                    for (var j = 0; j < collection.games.count; ++j) {
+                                        var game = collection.games.get(j);
+                                        if (game.title === selectedGame.title) {
+                                            gameFound = game;
+                                            updateContinuePlayingModel();
+                                            break;
+                                        }
+                                    }
+                                    break;
+                                }
+                            }
+                            
                             if (gameFound) {
                                 var wasFavorite = gameFound.favorite;
                                 gameFound.favorite = !wasFavorite;
-                            
                                 var notificationMessage = wasFavorite ? "Removed from favorites" : "Added to favorites";
                                 showNotification(notificationMessage);
-
                                 if (gameListView.count === 0) {
                                     infogame.selectedGame = null;
                                 }
-                            }
+                            } 
                         }
                     }
                     
                     onFocusChanged: {
                         if (gameListView.focus && gameListView.count > 0) {
                             infogame.selectedGame = gameListView.model.get(gameListView.currentIndex);
-                            /*updatePlayTime();
-                            updateLastPlayed();*/
                             updateGameInfo();
                         } else {
                             infogame.selectedGame = null;
@@ -420,8 +436,6 @@ FocusScope {
                         if (gameListView.count > 0 && gameListView.focus) {
                             infogame.selectedGame = gameListView.model.get(gameListView.currentIndex);
                             indexToPosition = currentIndex;
-                            /*updatePlayTime();
-                            updateLastPlayed();*/
                             updateGameInfo();
                         } else {
                             infogame.selectedGame = null;
@@ -733,6 +747,35 @@ FocusScope {
         } else {
             playTimeText.text = "Play Time: 00:00:00\n";
             lastPlayedText.text = "Last Played:\nN/A";
+        }
+    }
+
+    function getNameCollecForGame(game) {
+        if (game && game.collections && game.collections.count > 0) {
+            var firstCollection = game.collections.get(0);
+            for (var i = 0; i < api.collections.count; ++i) {
+                var collection = api.collections.get(i);
+                if (collection.name === firstCollection.name) {
+                    return collection.name;
+                }
+            }
+        }
+        return "default";
+    }
+    function updateContinuePlayingModel() {
+        continuePlayingProxyModel.clear();
+
+        var currentDate = new Date();
+        var sevenDaysAgo = new Date(currentDate.getTime() - 7 * 24 * 60 * 60 * 1000);
+
+        for (var i = 0; i < historyProxyModel.count; ++i) {
+            var game = historyProxyModel.get(i);
+            var lastPlayedDate = new Date(game.lastPlayed);
+            var playTimeInMinutes = game.playTime / 60;
+
+            if (lastPlayedDate >= sevenDaysAgo && playTimeInMinutes > 1) {
+                continuePlayingProxyModel.append(game);
+            }
         }
     }
 }
