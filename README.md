@@ -8,7 +8,7 @@
 
 # Iconos Monochrome de RetroArch:
 - Agradecemos a los diseñadores de los iconos monochrome utilizados en este tema.
-[Proyecto libretro]([https://github.com/libretro/retroarch-assets](https://github.com/libretro/retroarch-assets/tree/master/xmb/monochrome/png)
+[proyecto libretro](https://github.com/libretro/retroarch-assets/tree/master/xmb/monochrome/png)
 
 # Iconos del sistema:
 - Para que los íconos del sistema coincidan con su colección de juegos, verifique el **shortName** de la colección en el archivo **metadata.txt** y asegúrese de que coincida con el ícono correspondiente en la carpeta "**assets/systems/**"
