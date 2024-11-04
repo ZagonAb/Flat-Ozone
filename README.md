@@ -7,8 +7,7 @@
 - Diseño Minimalista: Un enfoque limpio y simple, con un uso eficiente de espacio y elementos visuales.
 
 # Iconos Monochrome de RetroArch:
-- Agradecemos a los diseñadores de los iconos monochrome utilizados en este tema.
-[proyecto libretro](https://github.com/libretro/retroarch-assets/tree/master/xmb/monochrome/png)
+- Iconos utilizados en este proyecto de varios colaboradores en [libretro](https://github.com/libretro/retroarch-assets/tree/master/xmb/monochrome/png) bajo la licencia [CC-BY-4.0](https://creativecommons.org/licenses/by/4.0/deed.en).
 
 # Iconos del sistema:
 - Para que los íconos del sistema coincidan con su colección de juegos, verifique el **shortName** de la colección en el archivo **metadata.txt** y asegúrese de que coincida con el ícono correspondiente en la carpeta "**assets/systems/**"
