@@ -5,8 +5,12 @@
   
 # Característica principal:
 - Diseño Minimalista: Un enfoque limpio y simple, con un uso eficiente de espacio y elementos visuales.
-- ¡Colecciones de Favoritos y Continuar Jugando agregadas! Para un manejo más eficiente de los juegos que necesitamos tener a mano.
+- **¡Colecciones de Favoritos y Continuar Jugando agregadas!** Para un manejo más eficiente de los juegos que necesitamos tener a mano.
+
+# Mejoras y Arreglos
 - **Recientemente se agregó un efecto de sonido tanto al desplazarse por las colecciones como en los juegos, así como también al agregar un juego a favoritos.**
+- **Se implementó una corrección en la actualización de la fecha y hora. Ahora el reloj se actualiza correctamente cada segundo mediante un Timer.**
+
 
 # Iconos Monochrome de RetroArch:
 - Iconos utilizados en este proyecto de varios colaboradores en [libretro](https://github.com/libretro/retroarch-assets/tree/master/xmb/monochrome/png) bajo la licencia [CC-BY-4.0](https://creativecommons.org/licenses/by/4.0/deed.en).
