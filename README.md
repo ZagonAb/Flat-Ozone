@@ -5,6 +5,7 @@
   
 # Característica principal:
 - Diseño Minimalista: Un enfoque limpio y simple, con un uso eficiente de espacio y elementos visuales.
+- ¡Colecciones de Favoritos y Continuar Jugando agregadas! Para un manejo más eficiente de los juegos que necesitamos tener a mano.
 - **Recientemente se agregó un efecto de sonido tanto al desplazarse por las colecciones como en los juegos, así como también al agregar un juego a favoritos.**
 
 # Iconos Monochrome de RetroArch:
