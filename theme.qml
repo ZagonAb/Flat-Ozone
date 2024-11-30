@@ -629,14 +629,13 @@ FocusScope {
                         id: clockRow
                         spacing: 5
 
-                        // Añade un Timer para actualizar la hora
                         Timer {
                             id: clockTimer
-                            interval: 1000 // 1000 milisegundos = 1 segundo
+                            interval: 1000
                             repeat: true
                             running: true
+
                             onTriggered: {
-                                // Actualiza el texto de la hora
                                 clockText.text = Qt.formatDateTime(new Date(), "dd-MM HH:mm")
                             }
                         }
