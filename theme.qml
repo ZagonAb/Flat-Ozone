@@ -626,8 +626,23 @@ FocusScope {
                     spacing: 10
 
                     Row {
+                        id: clockRow
                         spacing: 5
+
+                        // Añade un Timer para actualizar la hora
+                        Timer {
+                            id: clockTimer
+                            interval: 1000 // 1000 milisegundos = 1 segundo
+                            repeat: true
+                            running: true
+                            onTriggered: {
+                                // Actualiza el texto de la hora
+                                clockText.text = Qt.formatDateTime(new Date(), "dd-MM HH:mm")
+                            }
+                        }
+
                         Text {
+                            id: clockText
                             text: Qt.formatDateTime(new Date(), "dd-MM HH:mm")
                             color: "white"
                             font.pixelSize: Math.min(topBar.height / 3, topBar.width / 40)
@@ -637,7 +652,7 @@ FocusScope {
                         Image {
                             source: "assets/theme-icons/clock.png"
                             width: 20
-                            height: 20 
+                            height: 20
                             anchors.verticalCenter: parent.verticalCenter
                             sourceSize { width: 20; height: 20 }
                         }
