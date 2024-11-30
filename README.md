@@ -5,6 +5,7 @@
   
 # Característica principal:
 - Diseño Minimalista: Un enfoque limpio y simple, con un uso eficiente de espacio y elementos visuales.
+- **Recientemente se agregó un efecto de sonido tanto al desplazarse por las colecciones como en los juegos, así como también al agregar un juego a favoritos.**
 
 # Iconos Monochrome de RetroArch:
 - Iconos utilizados en este proyecto de varios colaboradores en [libretro](https://github.com/libretro/retroarch-assets/tree/master/xmb/monochrome/png) bajo la licencia [CC-BY-4.0](https://creativecommons.org/licenses/by/4.0/deed.en).
