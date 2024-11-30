@@ -657,7 +657,7 @@ FocusScope {
                         }
                     }
                     
-                    Row {
+                    /*Row {
                         spacing: 5
                         Text {
                             text: {
@@ -676,6 +676,60 @@ FocusScope {
                             source: "assets/theme-icons/battery.png"
                             width: 20 
                             height: 20 
+                            anchors.verticalCenter: parent.verticalCenter
+                            sourceSize { width: 20; height: 20 }
+                        }
+                    }*/
+
+                    Row {
+                        spacing: 5
+
+                        // Función para obtener el icono de batería
+                        function getBatteryIcon() {
+                            if (isNaN(api.device.batteryPercent)) {
+                                return "assets/icons/battery.png";  // Icono por defecto si no hay datos
+                            }
+
+                            const batteryPercent = api.device.batteryPercent * 100;
+
+                            // Si está cargando
+                            if (api.device.batteryCharging) {
+                                return "assets/icons/charging.png";
+                            }
+
+                            // Iconos por rangos de porcentaje
+                            if (batteryPercent <= 20) {
+                                return "assets/icons/20.png";
+                            } else if (batteryPercent <= 40) {
+                                return "assets/icons/40.png";
+                            } else if (batteryPercent <= 60) {
+                                return "assets/icons/60.png";
+                            } else if (batteryPercent <= 80) {
+                                return "assets/icons/80.png";
+                            } else {
+                                return "assets/icons/battery.png";  // Batería full
+                            }
+                        }
+
+                        // Texto de porcentaje de batería
+                        Text {
+                            text: {
+                                if (isNaN(api.device.batteryPercent)) {
+                                    return "N/A"
+                                } else {
+                                    return (api.device.batteryPercent * 100).toFixed(0) + "%"
+                                }
+                            }
+                            color: "white"
+                            font.pixelSize: Math.min(topBar.height / 3, topBar.width / 40)
+                            anchors.verticalCenter: parent.verticalCenter
+                        }
+
+                        // Imagen de batería
+                        Image {
+                            source: parent.getBatteryIcon()
+                            width: 20
+                            height: 20
                             anchors.verticalCenter: parent.verticalCenter
                             sourceSize { width: 20; height: 20 }
                         }
