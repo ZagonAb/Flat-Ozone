@@ -10,6 +10,7 @@
 # Mejoras y Arreglos
 - **Recientemente se agregó un efecto de sonido tanto al desplazarse por las colecciones como en los juegos, así como también al agregar un juego a favoritos.**
 - **Se implementó una corrección en la actualización de la fecha y hora. Ahora el reloj se actualiza correctamente cada segundo mediante un Timer.**
+- **Cambio en el indicador y los íconos de la batería: ahora es posible mostrar el estado de la batería en la interfaz al cargar, cuando está completamente cargada, o el porcentaje actual mediante íconos dinámicos. Dependiendo del nivel de carga (20%, 40%, 60%, 80% o 100%) y si la batería está cargando, se actualiza el ícono correspondiente. Además, el porcentaje de la batería se muestra como texto junto al ícono, con la visualización de 'N/A' si no se puede obtener el valor.**
 
 
 # Iconos Monochrome de RetroArch:
