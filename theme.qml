@@ -660,7 +660,6 @@ FocusScope {
                     Row {
                         spacing: 5
 
-
                         function getBatteryIcon() {
                             if (isNaN(api.device.batteryPercent)) {
                                 return "assets/theme-icons/battery.png";
