@@ -2,9 +2,10 @@ import QtQuick 2.15
 import QtQuick.Layouts 1.15
 import QtGraphicalEffects 1.12
 import SortFilterProxyModel 0.2
-import QtMultimedia 5.8
+import QtMultimedia 5.15
 
 FocusScope {
+    id: root
     focus: true
 
     property string collectionShortName: ""
@@ -19,6 +20,32 @@ FocusScope {
     FontLoader {
         id: fontLoader
         source: "assets/font/font.ttf"
+    }
+
+    SoundEffect {
+        id: up
+        source: "assets/sound/up.wav"
+        volume: 2.5
+    }
+
+    SoundEffect {
+        id: down
+        source: "assets/sound/down.wav"
+        volume: 2.5
+    }
+
+    SoundEffect {
+        id: favo
+        source: "assets/sound/favo.wav"
+        volume: 2.5
+    }
+
+    Audio {
+        id: bgm
+        source: "assets/sound/bgm.ogg"
+        loops: Audio.Infinite
+        volume: 1
+        autoPlay: true
     }
 
     Item {
@@ -177,41 +204,44 @@ FocusScope {
                                 height: parent.height
                                 color: "transparent"
                             }
-                            
+
                             Image {
                                 source: "assets/systems/" + model.shortName + ".png"
                                 width: 40
                                 height: 40
                                 fillMode: Image.PreserveAspectFit
                                 anchors.verticalCenter: parent.verticalCenter
-                                smooth: true
-                                sourceSize { width: 40; height: 40 }
+                                mipmap: true
                             }
-                            
+
                             Text {
                                 visible: listView.focus
                                 text: model.name
-                                font.pixelSize: Math.min(listView.height * 0.03, listView.width / 20)
+                                font.pixelSize: root.width * 0.012
                                 elide: listView.focus ? Text.ElideRight : Text.ElideNone
-                                color: "#c0c0c0"
+                                color: (listView.currentIndex === index && listView.focus) ? "#ffffff" : "#c0c0c0"
                                 anchors.verticalCenter: parent.verticalCenter
                                 font.family: fontLoader.name
+                                font.bold: false
                                 width: listView.focus ? Math.max(0, listView.width - 10 - 30 - 20) : 30
                             }
                         }
                     }
+
                     Behavior on width {
                         NumberAnimation {
                             duration: 300
                             easing.type: Easing.InOutQuad
                         }
                     }
+
                     Keys.onUpPressed: {
                         if (currentIndex > 0) {
                             currentIndex--
                         } else {
                             currentIndex = count - 1
                         }
+                        up.play()
                     }
 
                     Keys.onDownPressed: {
@@ -220,12 +250,14 @@ FocusScope {
                         } else {
                             currentIndex = 0
                         }
+                        down.play()
                     }
 
                     Keys.onRightPressed: {
                         listView.width = parent.width / 8
                         gameListView.focus = true
                         gameListView.currentIndex = 0
+                        up.play()
                     }
 
                     onCurrentIndexChanged: {
@@ -278,11 +310,11 @@ FocusScope {
                             Image {
                                 id: systemIcono
                                 source: "assets/systems/" + getShortNameForGame(model) + "-content.png"
-                                width: 30
-                                height: 30
+                                width: root.width * 0.050
+                                height: root.height * 0.050
                                 fillMode: Image.PreserveAspectFit
                                 anchors.verticalCenter: parent.verticalCenter
-                                sourceSize { width: 30; height: 30 }
+                                mipmap: true
                             }
 
                             Text {
@@ -290,7 +322,7 @@ FocusScope {
                                 width: gameListView.width - 40
                                 elide: Text.ElideRight
                                 text: model.title
-                                font.pixelSize: Math.min(gameListView.height * 0.03, gameListView.width / 20)
+                                font.pixelSize: root.width * 0.012
                                 font.family: fontLoader.name
                                 color: "#c0c0c0"
                                 anchors.verticalCenter: parent.verticalCenter
@@ -338,6 +370,7 @@ FocusScope {
                     Keys.onLeftPressed: {
                         listView.width = parent.width / 4
                         listView.focus = true
+                        down.play()
                     }
 
                     Keys.onUpPressed: {
@@ -346,6 +379,7 @@ FocusScope {
                         } else {
                             gameListView.currentIndex -= 1;
                         }
+                        up.play()
                     }
 
                     Keys.onDownPressed: {
@@ -354,6 +388,7 @@ FocusScope {
                         } else {
                             gameListView.currentIndex += 1;
                         }
+                        down.play()
                     }
 
                     Keys.onPressed: {
@@ -376,6 +411,7 @@ FocusScope {
                             }
                         } else if (!event.isAutoRepeat && api.keys.isDetails(event)) {
                             event.accepted = true;
+                            favo.play();
                             var selectedGame = gameListView.model.get(gameListView.currentIndex);
                             var collectionName = getNameCollecForGame(selectedGame);
                             var gameFound = null;
@@ -555,9 +591,9 @@ FocusScope {
 
             Rectangle {
                 id: topBar
-                height: parent.height * 0.10    
+                height: parent.height * 0.10
                 width: parent.width * 0.98
-                anchors.horizontalCenter: parent.horizontalCenter        
+                anchors.horizontalCenter: parent.horizontalCenter
                 anchors.bottom: conteiner.top 
                 color: "#0e0e0e"
 
@@ -706,6 +742,7 @@ FocusScope {
             }
         }
     }
+
     function updateGameInfo() {
         var game = gameListView.model.get(gameListView.currentIndex);
         
@@ -732,7 +769,6 @@ FocusScope {
             lastPlayedText.text = "Last Played:\nN/A";
         }
     }
-
     function getNameCollecForGame(game) {
         if (game && game.collections && game.collections.count > 0) {
             var firstCollection = game.collections.get(0);
