@@ -7,7 +7,6 @@ import QtMultimedia 5.15
 FocusScope {
     id: root
     focus: true
-
     property string collectionShortName: ""
     
     function showNotification(message) {
@@ -370,6 +369,7 @@ FocusScope {
                     Keys.onLeftPressed: {
                         listView.width = parent.width / 4
                         listView.focus = true
+                        clearGameInfo();
                         down.play()
                     }
 
@@ -422,35 +422,31 @@ FocusScope {
                                         var game = collection.games.get(j);
                                         if (game.title === selectedGame.title) {
                                             gameFound = game;
+                                            game.favorite = !game.favorite;
+                                            // Actualizar inmediatamente el texto de favorito
+                                            favoriteText.text = "Favorite: " + (game.favorite ? "Yes" : "No");
                                             updateContinuePlayingModel();
+                                            var notificationMessage = game.favorite ? "Added to favorites" : "Removed from favorites";
+                                            showNotification(notificationMessage);
                                             break;
                                         }
                                     }
                                     break;
                                 }
                             }
-                            
-                            if (gameFound) {
-                                var wasFavorite = gameFound.favorite;
-                                gameFound.favorite = !wasFavorite;
-                                var notificationMessage = wasFavorite ? "Removed from favorites" : "Added to favorites";
-                                showNotification(notificationMessage);
-                                if (gameListView.count === 0) {
-                                    infogame.selectedGame = null;
-                                }
-                            } 
+
+                            if (gameListView.count === 0) {
+                                infogame.selectedGame = null;
+                            }
+                        } else if (!event.isAutoRepeat && api.keys.isCancel(event)) {
+                            event.accepted = true;
+                            listView.width = parent.width / 4
+                            listView.focus = true
+                            clearGameInfo();
+                            down.play()
                         }
                     }
                     
-                    onFocusChanged: {
-                        if (gameListView.focus && gameListView.count > 0) {
-                            infogame.selectedGame = gameListView.model.get(gameListView.currentIndex);
-                            updateGameInfo();
-                        } else {
-                            infogame.selectedGame = null;
-                        }
-                    }
-
                     onCurrentItemChanged: {
                         if (gameListView.count > 0 && gameListView.focus) {
                             infogame.selectedGame = gameListView.model.get(gameListView.currentIndex);
@@ -458,6 +454,17 @@ FocusScope {
                             updateGameInfo();
                         } else {
                             infogame.selectedGame = null;
+                        }
+                    }
+
+                    onFocusChanged: {
+                        if (gameListView.focus && gameListView.count > 0) {
+                            infogame.selectedGame = gameListView.model.get(gameListView.currentIndex);
+                            updateGameInfo();
+                        } else {
+                            infogame.selectedGame = null;
+                            // Limpiar los textos cuando se pierde el foco
+                            clearGameInfo();
                         }
                     }
 
@@ -579,6 +586,15 @@ FocusScope {
                             Text {
                                 id: lastPlayedText
                                 text: "Last Played:"
+                                font.pixelSize: Math.min(infogame.height / 28, infogame.width / 18)
+                                color: "#c0c0c0"
+                                width: parent.width
+                                wrapMode: Text.Wrap
+                            }
+
+                            Text {
+                                id: favoriteText
+                                text: "Favorite: "
                                 font.pixelSize: Math.min(infogame.height / 28, infogame.width / 18)
                                 color: "#c0c0c0"
                                 width: parent.width
@@ -782,30 +798,54 @@ FocusScope {
         }
     }
 
+    function clearGameInfo() {
+        playTimeText.text = "Play Time:";
+        lastPlayedText.text = "Last Played:";
+        favoriteText.text = "Favorite:";
+    }
     function updateGameInfo() {
-        var game = gameListView.model.get(gameListView.currentIndex);
-        
-        if (game) {
-            var totalSeconds = game.playTime || 0;
-            var hours = Math.floor(totalSeconds / 3600);
-            var minutes = Math.floor((totalSeconds % 3600) / 60);
-            var seconds = totalSeconds % 60;
-            var playTimeFormatted = 
-                (hours < 10 ? "0" : "") + hours + ":" + 
-                (minutes < 10 ? "0" : "") + minutes + ":" + 
-                (seconds < 10 ? "0" : "") + seconds;
-            playTimeText.text = "Play Time:\n" + playTimeFormatted;
+        if (!gameListView.focus) {
+            clearGameInfo();
+            return;
+        }
 
-            if (game.lastPlayed.getTime()) {
-                var lastPlayedDate = new Date(game.lastPlayed);
-                var formattedDate = Qt.formatDateTime(lastPlayedDate, "yyyy-MM-dd HH:mm");
-                lastPlayedText.text = "Last Played:\n" + formattedDate;
-            } else {
-                lastPlayedText.text = "Last Played:\nN/A";
-            }
+        var game = gameListView.model.get(gameListView.currentIndex);
+        if (!game) {
+            clearGameInfo();
+            return;
+        }
+
+        var totalSeconds = game.playTime || 0;
+        var hours = Math.floor(totalSeconds / 3600);
+        var minutes = Math.floor((totalSeconds % 3600) / 60);
+        var seconds = totalSeconds % 60;
+        var playTimeFormatted =
+        (hours < 10 ? "0" : "") + hours + ":" +
+        (minutes < 10 ? "0" : "") + minutes + ":" +
+        (seconds < 10 ? "0" : "") + seconds;
+        playTimeText.text = "Play Time:\n" + playTimeFormatted;
+
+        if (game.lastPlayed.getTime()) {
+            var lastPlayedDate = new Date(game.lastPlayed);
+            var formattedDate = Qt.formatDateTime(lastPlayedDate, "yyyy-MM-dd HH:mm");
+            lastPlayedText.text = "Last Played:\n" + formattedDate;
         } else {
-            playTimeText.text = "Play Time: 00:00:00\n";
             lastPlayedText.text = "Last Played:\nN/A";
+        }
+
+        var collectionName = getNameCollecForGame(game);
+        for (var i = 0; i < api.collections.count; ++i) {
+            var collection = api.collections.get(i);
+            if (collection.name === collectionName) {
+                for (var j = 0; j < collection.games.count; ++j) {
+                    var originalGame = collection.games.get(j);
+                    if (originalGame.title === game.title) {
+                        favoriteText.text = "Favorite: " + (originalGame.favorite ? "Yes" : "No");
+                        break;
+                    }
+                }
+                break;
+            }
         }
     }
     function getNameCollecForGame(game) {
