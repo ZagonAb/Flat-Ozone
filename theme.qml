@@ -187,43 +187,55 @@ FocusScope {
                     property int visibleItemCount: Math.floor(height / itemHeight)
                     property int indexToPosition: -1
 
-                    delegate: Rectangle {
+                    delegate: Column {
                         width: listView.width
-                        height: 40
-                        color: listView.currentIndex === index && listView.focus ? "#303030" : "transparent"
-                        border.width: 2
-                        border.color: listView.currentIndex === index && listView.focus ? "#303030" : "transparent"
-                        Row {
-                            id: contentRow
-                            anchors.centerIn: parent
-                            spacing: 10
-                            width: listView.focus ? parent.width : 40
-                            Rectangle {
-                                width: 0.5
-                                height: parent.height
-                                color: "transparent"
-                            }
 
-                            Image {
-                                source: "assets/systems/" + model.shortName + ".png"
-                                width: 40
-                                height: 40
-                                fillMode: Image.PreserveAspectFit
-                                anchors.verticalCenter: parent.verticalCenter
-                                mipmap: true
-                            }
+                        Rectangle {
+                            width: listView.width
+                            height: 40
+                            color: listView.currentIndex === index && listView.focus ? "#303030" : "transparent"
+                            border.width: 2
+                            border.color: listView.currentIndex === index && listView.focus ? "#303030" : "transparent"
+                            Row {
+                                id: contentRow
+                                anchors.centerIn: parent
+                                spacing: 10
+                                width: listView.focus ? parent.width : 40
+                                Rectangle {
+                                    width: 0.5
+                                    height: parent.height
+                                    color: "transparent"
+                                }
 
-                            Text {
-                                visible: listView.focus
-                                text: model.name
-                                font.pixelSize: root.width * 0.012
-                                elide: listView.focus ? Text.ElideRight : Text.ElideNone
-                                color: (listView.currentIndex === index && listView.focus) ? "#ffffff" : "#c0c0c0"
-                                anchors.verticalCenter: parent.verticalCenter
-                                font.family: fontLoader.name
-                                font.bold: false
-                                width: listView.focus ? Math.max(0, listView.width - 10 - 30 - 20) : 30
+                                Image {
+                                    source: "assets/systems/" + model.shortName + ".png"
+                                    width: 40
+                                    height: 40
+                                    fillMode: Image.PreserveAspectFit
+                                    anchors.verticalCenter: parent.verticalCenter
+                                    mipmap: true
+                                }
+
+                                Text {
+                                    visible: listView.focus
+                                    text: model.name
+                                    font.pixelSize: root.width * 0.012
+                                    elide: listView.focus ? Text.ElideRight : Text.ElideNone
+                                    color: (listView.currentIndex === index && listView.focus) ? "#ffffff" : "#c0c0c0"
+                                    anchors.verticalCenter: parent.verticalCenter
+                                    font.family: fontLoader.name
+                                    font.bold: false
+                                    width: listView.focus ? Math.max(0, listView.width - 10 - 30 - 20) : 30
+                                }
                             }
+                        }
+
+                        Rectangle {
+                            width: parent.width * 0.90
+                            height: 1
+                            color: "#2c2c2c"
+                            opacity: 0.5
+                            visible: index === 1
                         }
                     }
 
@@ -328,13 +340,12 @@ FocusScope {
                             }
                         }
 
-                        // Línea horizontal divisoria
                         Rectangle {
                             width: parent.width
                             height: 1
-                            color: "#2c2c2c"  // Color gris oscuro para la línea
+                            color: "#2c2c2c"
                             opacity: 0.4
-                            visible: index !== gameListView.count - 1  // No mostrar línea después del último ítem
+                            visible: index !== gameListView.count - 1
                         }
 
                         function getShortNameForGame(game) {
