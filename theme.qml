@@ -328,6 +328,15 @@ FocusScope {
                             }
                         }
 
+                        // Línea horizontal divisoria
+                        Rectangle {
+                            width: parent.width
+                            height: 1
+                            color: "#2c2c2c"  // Color gris oscuro para la línea
+                            opacity: 0.4
+                            visible: index !== gameListView.count - 1  // No mostrar línea después del último ítem
+                        }
+
                         function getShortNameForGame(game) {
                             if (game && game.collections && game.collections.count > 0) {
                                 var firstCollection = game.collections.get(0);
@@ -620,10 +629,10 @@ FocusScope {
                     
                     Image {
                         source: "assets/theme-icons/pegasus.png"
-                        width: 40
-                        height: 40
+                        width: 50
+                        height: 50
+                        mipmap: true
                         anchors.verticalCenter: parent.verticalCenter
-                        sourceSize { width: 76; height: 76 }
                     }
 
                     Text {
