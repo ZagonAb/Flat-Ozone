@@ -230,6 +230,7 @@ FocusScope {
                             }
                         }
 
+
                         Rectangle {
                             width: parent.width * 0.90
                             height: 1
