@@ -24,9 +24,9 @@
 - Este tema utiliza la tipografía [Titilium Web Regular](https://fonts.google.com/specimen/Titillium%2BWeb) protegida bajo la [licencia Open Font License](https://openfontlicense.org/).
 
   # Capturas
-![1](https://github.com/user-attachments/assets/412f7526-1a9e-4993-bc17-355dd9c09ba9)
+![1](https://github.com/ZagonAb/Flat-Ozone/blob/38953904c71cc8327f4116a1c197599fb9942c45/.meta/screenshots/screen1.png)
 
-![2](https://github.com/user-attachments/assets/1b6cbe1c-da2a-4e2c-9eeb-dc4ea59240fc)
+![2](https://github.com/ZagonAb/Flat-Ozone/blob/38953904c71cc8327f4116a1c197599fb9942c45/.meta/screenshots/screen2.png)
 
 # Licencia
 <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Licencia Creative Commons" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br /><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"></a>
