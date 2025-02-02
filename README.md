@@ -25,7 +25,7 @@
 - Este tema utiliza la tipografía [Titilium Web Regular](https://fonts.google.com/specimen/Titillium%2BWeb) protegida bajo la [licencia Open Font License](https://openfontlicense.org/).
 
   # Capturas
-![1](https://github.com/ZagonAb/Flat-Ozone/blob/f6fb2e6756e81d2681605a57b2b42fd742108aab/.meta/screenshots/screen1.png)
+![1](https://github.com/ZagonAb/Flat-Ozone/blob/21bb66fec0aa7cb8b9963f20925a4277564a12ca/.meta/screenshots/screen1.png)
 
 ![2](https://github.com/ZagonAb/Flat-Ozone/blob/dbdcc67f0fc60ee176d2c32efc165272402993c5/.meta/screenshots/screen2.png)
 
