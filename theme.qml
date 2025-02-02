@@ -766,9 +766,27 @@ FocusScope {
                     anchors.right: parent.right
                     spacing: 20
 
-
                     Row {
                         spacing: 5
+
+                        visible: gameListView.focus
+                        opacity: gameListView.focus ? 1.0 : 0.0
+
+                        Behavior on opacity {
+                            NumberAnimation {
+                                duration: 300
+                                easing.type: Easing.InOutQuad
+                            }
+                        }
+
+                        onOpacityChanged: {
+                            if (opacity === 0.0) {
+                                visible = false;
+                            } else {
+                                visible = true;
+                            }
+                        }
+
                         Image {
                             source: "assets/theme-icons/details.png"
                             width: bottomBar.width * 0.02
@@ -789,6 +807,24 @@ FocusScope {
 
                     Row {
                         spacing: 5
+
+                        visible: gameListView.focus
+                        opacity: gameListView.focus ? 1.0 : 0.0
+
+                        Behavior on opacity {
+                            NumberAnimation {
+                                duration: 300
+                                easing.type: Easing.InOutQuad
+                            }
+                        }
+
+                        onOpacityChanged: {
+                            if (opacity === 0.0) {
+                                visible = false;
+                            } else {
+                                visible = true;
+                            }
+                        }
 
                         Image {
                             source: "assets/theme-icons/favorite.png"
