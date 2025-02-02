@@ -444,7 +444,6 @@ FocusScope {
                                         if (game.title === selectedGame.title) {
                                             gameFound = game;
                                             game.favorite = !game.favorite;
-                                            // Actualizar inmediatamente el texto de favorito
                                             favoriteText.text = "Favorite: " + (game.favorite ? "Yes" : "No");
                                             updateContinuePlayingModel();
                                             var notificationMessage = game.favorite ? "Added to favorites" : "Removed from favorites";
@@ -458,6 +457,14 @@ FocusScope {
 
                             if (gameListView.count === 0) {
                                 infogame.selectedGame = null;
+                            }
+                        } else if (!event.isAutoRepeat && api.keys.isFilters(event)) {
+                            event.accepted = true;
+                            // Cambiar entre 'boxFront' y 'screenshot'
+                            if (infogame.currentImageType === "boxFront") {
+                                infogame.currentImageType = "screenshot";
+                            } else {
+                                infogame.currentImageType = "boxFront";
                             }
                         } else if (!event.isAutoRepeat && api.keys.isCancel(event)) {
                             event.accepted = true;
@@ -507,6 +514,7 @@ FocusScope {
                     height: parent.height
                     anchors.left: gameListView.right
                     property var selectedGame: null
+                    property string currentImageType: "boxFront"
 
                     Behavior on width {
                         NumberAnimation {
@@ -549,7 +557,7 @@ FocusScope {
                             Image {
                                 id: boxFrontImage
                                 anchors.fill: parent
-                                source: infogame.selectedGame ? infogame.selectedGame.assets.boxFront : ""
+                                source: infogame.selectedGame ? infogame.selectedGame.assets[infogame.currentImageType] : ""
                                 fillMode: Image.PreserveAspectFit
                                 sourceSize { width: 456; height: 456 }
                                 visible: status === Image.Ready
@@ -758,12 +766,34 @@ FocusScope {
                     anchors.right: parent.right
                     spacing: 20
 
+
                     Row {
-                        spacing: 5 
+                        spacing: 5
+                        Image {
+                            source: "assets/theme-icons/details.png"
+                            width: bottomBar.width * 0.02
+                            height: bottomBar.height * 0.35
+                            anchors.verticalCenter: parent.verticalCenter
+                            sourceSize { width: 64; height: 64 }
+                        }
+
+                        Text {
+                            text: " Cycle thumbnail"
+                            color: "white"
+                            font.family: fontLoader.name
+                            font.pixelSize: bottomBar.height * 0.25
+                            anchors.verticalCenter: parent.verticalCenter
+                        }
+                    }
+
+
+                    Row {
+                        spacing: 5
+
                         Image {
                             source: "assets/theme-icons/favorite.png"
-                            width: Math.min(parent.height * 0.95, parent.width * 0.95)
-                            height: Math.min(parent.height * 0.95, parent.width * 0.95) 
+                            width: bottomBar.width * 0.02
+                            height: bottomBar.height * 0.35
                             anchors.verticalCenter: parent.verticalCenter
                             sourceSize { width: 64; height: 64 }
                         }
@@ -772,17 +802,17 @@ FocusScope {
                             text: " Favorite"
                             color: "white"
                             font.family: fontLoader.name
-                            font.pixelSize: Math.min(bottomBar.height / 3, bottomBar.width / 40)
+                            font.pixelSize: bottomBar.height * 0.25
                             anchors.verticalCenter: parent.verticalCenter
                         }
                     }
 
                     Row {
-                        spacing: 5 
+                        spacing: 5
                         Image {
                             source: "assets/theme-icons/back.png"
-                            width: Math.min(parent.height * 0.95, parent.width * 0.95)
-                            height: Math.min(parent.height * 0.95, parent.width * 0.95) 
+                            width: bottomBar.width * 0.02
+                            height: bottomBar.height * 0.35
                             anchors.verticalCenter: parent.verticalCenter
                             sourceSize { width: 64; height: 64 }
                         }
@@ -791,7 +821,7 @@ FocusScope {
                             text: " Back"
                             color: "white"
                             font.family: fontLoader.name
-                            font.pixelSize: Math.min(bottomBar.height / 3, bottomBar.width / 40)
+                            font.pixelSize: bottomBar.height * 0.25
                             anchors.verticalCenter: parent.verticalCenter
                         }
                     }
@@ -800,8 +830,8 @@ FocusScope {
                         spacing: 5
                         Image {
                             source: "assets/theme-icons/ok.png"
-                            width: Math.min(parent.height * 0.95, parent.width * 0.95)
-                            height: Math.min(parent.height * 0.95, parent.width * 0.95)
+                            width: bottomBar.width * 0.02
+                            height: bottomBar.height * 0.35
                             anchors.verticalCenter: parent.verticalCenter
                             sourceSize { width: 64; height: 64 }
                         }
@@ -810,7 +840,7 @@ FocusScope {
                             text: " OK"
                             color: "white"
                             font.family: fontLoader.name
-                            font.pixelSize: Math.min(bottomBar.height / 3, bottomBar.width / 40)
+                            font.pixelSize: bottomBar.height * 0.25
                             anchors.verticalCenter: parent.verticalCenter
                         }
                     }

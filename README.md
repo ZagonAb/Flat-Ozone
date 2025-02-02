@@ -12,6 +12,7 @@
 - **Se implementó una corrección en la actualización de la fecha y hora. Ahora el reloj se actualiza correctamente cada segundo mediante un Timer.**
 - **Cambio en el indicador y los íconos de la batería: ahora es posible mostrar el estado de la batería en la interfaz al cargar, cuando está completamente cargada, o el porcentaje actual mediante íconos dinámicos.**
 - **En infogame ahora se mostrará un texto indicando si el juego está marcado como Favorito o no. Los datos de Playtime, Last Played y Favorite se ocultarán al salir de gamelistview.**
+- **Se ha implementado una nueva funcionalidad que permite alternar entre las imágenes boxFront y screenshot en la vista de detalles del juego.**
 
 
 # Iconos Monochrome de RetroArch:
