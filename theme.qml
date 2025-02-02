@@ -758,17 +758,25 @@ FocusScope {
                 height: parent.height * 0.10
                 width: parent.width * 0.98
                 anchors.horizontalCenter: parent.horizontalCenter
-                anchors.top: conteiner.bottom 
+                anchors.top: conteiner.bottom
                 color: "#0e0e0e"
 
                 Row {
+                    id: mainRow
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.right: parent.right
                     spacing: 20
 
-                    Row {
-                        spacing: 5
+                    Behavior on anchors.rightMargin {
+                        NumberAnimation {
+                            duration: 300
+                            easing.type: Easing.InOutQuad
+                        }
+                    }
 
+                    Row {
+                        id: detailsRow
+                        spacing: 5
                         visible: gameListView.focus
                         opacity: gameListView.focus ? 1.0 : 0.0
 
@@ -804,10 +812,9 @@ FocusScope {
                         }
                     }
 
-
                     Row {
+                        id: favoriteRow
                         spacing: 5
-
                         visible: gameListView.focus
                         opacity: gameListView.focus ? 1.0 : 0.0
 
@@ -843,28 +850,10 @@ FocusScope {
                         }
                     }
 
-                    Row {
-                        spacing: 5
-                        Image {
-                            source: "assets/theme-icons/back.png"
-                            width: bottomBar.width * 0.02
-                            height: bottomBar.height * 0.35
-                            anchors.verticalCenter: parent.verticalCenter
-                            sourceSize { width: 64; height: 64 }
-                        }
-
-                        Text {
-                            text: " Back"
-                            color: "white"
-                            font.family: fontLoader.name
-                            font.pixelSize: bottomBar.height * 0.25
-                            anchors.verticalCenter: parent.verticalCenter
-                        }
-                    }
 
                     Row {
+                        id: okRow
                         spacing: 5
-
                         visible: gameListView.focus
                         opacity: gameListView.focus ? 1.0 : 0.0
 
@@ -899,7 +888,46 @@ FocusScope {
                             anchors.verticalCenter: parent.verticalCenter
                         }
                     }
+
+                    Row {
+                        id: backRow
+                        spacing: 5
+                        Image {
+                            source: "assets/theme-icons/back.png"
+                            width: bottomBar.width * 0.02
+                            height: bottomBar.height * 0.35
+                            anchors.verticalCenter: parent.verticalCenter
+                            sourceSize { width: 64; height: 64 }
+                        }
+
+                        Text {
+                            text: " Back"
+                            color: "white"
+                            font.family: fontLoader.name
+                            font.pixelSize: bottomBar.height * 0.25
+                            anchors.verticalCenter: parent.verticalCenter
+                        }
+                    }
                 }
+
+                states: [
+                    State {
+                        name: "hidden"
+                        when: !gameListView.focus
+                        PropertyChanges {
+                            target: mainRow
+                            anchors.rightMargin: backRow.width + bottomBar.width * 0.003
+                        }
+                    },
+                    State {
+                        name: "visible"
+                        when: gameListView.focus
+                        PropertyChanges {
+                            target: mainRow
+                            anchors.rightMargin: 0
+                        }
+                    }
+                ]
             }
         }
     }
