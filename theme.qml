@@ -322,8 +322,8 @@ FocusScope {
                             Image {
                                 id: systemIcono
                                 source: "assets/systems/" + getShortNameForGame(model) + "-content.png"
-                                width: root.width * 0.050
-                                height: root.height * 0.050
+                                width: root.width * 0.045
+                                height: root.height * 0.045
                                 fillMode: Image.PreserveAspectFit
                                 anchors.verticalCenter: parent.verticalCenter
                                 mipmap: true
