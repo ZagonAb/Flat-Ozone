@@ -1,30 +1,16 @@
 # Flat Ozone theme for Pegasus
 
-- El tema **Flat Ozone** es una interfaz moderna y elegante inspirada en el popular tema **ozone** de retroarch, pero con un diseño más minimalista y sin efectos visuales complejos.
-- Este tema está diseñado para ofrecer una experiencia de navegación fluida y centrada en el contenido, ideal para entusiastas de los juegos retro.
-  
-# Característica principal:
-- Diseño Minimalista: Un enfoque limpio y simple, con un uso eficiente de espacio y elementos visuales.
-- **¡Colecciones de Favoritos y Continuar Jugando agregadas!** Para un manejo más eficiente de los juegos que necesitamos tener a mano.
+- The **Flat Ozone** theme is a modern and sleek interface inspired by the popular **Ozone** theme from RetroArch.
 
-# Mejoras y Arreglos
-- **Recientemente se agregó un efecto de sonido tanto al desplazarse por las colecciones como en los juegos, así como también al agregar un juego a favoritos.**
-- **Se implementó una corrección en la actualización de la fecha y hora. Ahora el reloj se actualiza correctamente cada segundo mediante un Timer.**
-- **Cambio en el indicador y los íconos de la batería: ahora es posible mostrar el estado de la batería en la interfaz al cargar, cuando está completamente cargada, o el porcentaje actual mediante íconos dinámicos.**
-- **En infogame ahora se mostrará un texto indicando si el juego está marcado como Favorito o no. Los datos de Playtime, Last Played y Favorite se ocultarán al salir de gamelistview.**
-- **Se ha implementado una nueva funcionalidad que permite alternar entre las imágenes boxFront y screenshot en la vista de detalles del juego.**
+# RetroArch Monochrome Icons:
 
+- Icons used in this project come from various contributors on [libretro](https://github.com/libretro/retroarch-assets/tree/master/xmb/monochrome/png) under the [CC-BY-4.0](https://creativecommons.org/licenses/by/4.0/deed.en) license.
 
-# Iconos Monochrome de RetroArch:
-- Iconos utilizados en este proyecto de varios colaboradores en [libretro](https://github.com/libretro/retroarch-assets/tree/master/xmb/monochrome/png) bajo la licencia [CC-BY-4.0](https://creativecommons.org/licenses/by/4.0/deed.en).
+# Theme Font
 
-# Iconos del sistema:
-- Para que los íconos del sistema coincidan con su colección de juegos, verifique el **shortName** de la colección en el archivo **metadata.txt** y asegúrese de que coincida con el ícono correspondiente en la carpeta "**assets/systems/**"
-  
-# Fuente del tema
-- Este tema utiliza la tipografía [Titilium Web Regular](https://fonts.google.com/specimen/Titillium%2BWeb) protegida bajo la [licencia Open Font License](https://openfontlicense.org/).
+- This theme uses the [Titillium Web Regular](https://fonts.google.com/specimen/Titillium%2BWeb) font, licensed under the [Open Font License](https://openfontlicense.org/).
 
-  # Capturas
+  # Screenshot
 ![1](https://github.com/ZagonAb/Flat-Ozone/blob/21bb66fec0aa7cb8b9963f20925a4277564a12ca/.meta/screenshots/screen1.png)
 
 ![2](https://github.com/ZagonAb/Flat-Ozone/blob/dbdcc67f0fc60ee176d2c32efc165272402993c5/.meta/screenshots/screen2.png)
