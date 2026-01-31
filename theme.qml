@@ -498,7 +498,6 @@ FocusScope {
                             updateGameInfo();
                         } else {
                             infogame.selectedGame = null;
-                            // Limpiar los textos cuando se pierde el foco
                             clearGameInfo();
                         }
                     }
