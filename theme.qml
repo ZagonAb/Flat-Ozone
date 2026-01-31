@@ -272,6 +272,13 @@ FocusScope {
                         up.play()
                     }
 
+                    Keys.onPressed: {
+                        if (!event.isAutoRepeat && api.keys.isCancel(event)) {
+                            event.accepted = false;
+                            down.play()
+                        }
+                    }
+
                     onCurrentIndexChanged: {
                         const selectedCollection = collectionsModel.get(currentIndex)
                         gameListView.model = selectedCollection.games
@@ -460,7 +467,7 @@ FocusScope {
                             }
                         } else if (!event.isAutoRepeat && api.keys.isFilters(event)) {
                             event.accepted = true;
-                            // Cambiar entre 'boxFront' y 'screenshot'
+                            up.play()
                             if (infogame.currentImageType === "boxFront") {
                                 infogame.currentImageType = "screenshot";
                             } else {
