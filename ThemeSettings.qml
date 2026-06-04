@@ -16,7 +16,7 @@ Item {
 
     readonly property var themes: [
         {
-            name: "Gris oscuro",
+            name: "Dark gray",
             bg: "#0e0e0e",
             surface: "#1a1a1a",
             highlight: "#303030",
@@ -26,7 +26,7 @@ Item {
             separator: "#2c2c2c"
         },
         {
-            name: "Gris claro",
+            name: "Light gray",
             bg: "#d0d0d0",
             surface: "#e8e8e8",
             highlight: "#b0b0b0",
@@ -36,7 +36,7 @@ Item {
             separator: "#aaaaaa"
         },
         {
-            name: "Blanco básico",
+            name: "Basic white",
             bg: "#f5f5f5",
             surface: "#ffffff",
             highlight: "#e0e0e0",
@@ -46,7 +46,7 @@ Item {
             separator: "#cccccc"
         },
         {
-            name: "Negro básico",
+            name: "Basic black",
             bg: "#000000",
             surface: "#0a0a0a",
             highlight: "#1c1c1c",
@@ -56,7 +56,7 @@ Item {
             separator: "#1a1a1a"
         },
         {
-            name: "Nórdico",
+            name: "Nordic",
             bg: "#2e3440",
             surface: "#3b4252",
             highlight: "#434c5e",
@@ -66,7 +66,7 @@ Item {
             separator: "#4c566a"
         },
         {
-            name: "Gruvbox (oscuro)",
+            name: "Gruvbox (dark)",
             bg: "#282828",
             surface: "#3c3836",
             highlight: "#504945",
@@ -86,7 +86,7 @@ Item {
             separator: "#3d155a"
         },
         {
-            name: "Hackeando el kernel",
+            name: "Hacking the kernel",
             bg: "#0d0d0d",
             surface: "#111111",
             highlight: "#003300",
@@ -106,7 +106,7 @@ Item {
             separator: "#1a1a3a"
         },
         {
-            name: "Drácula",
+            name: "Dracula",
             bg: "#282a36",
             surface: "#343746",
             highlight: "#44475a",
@@ -116,7 +116,7 @@ Item {
             separator: "#44475a"
         },
         {
-            name: "Solarizado (oscuro)",
+            name: "Solarized (dark)",
             bg: "#002b36",
             surface: "#073642",
             highlight: "#0a4a5a",
@@ -126,7 +126,7 @@ Item {
             separator: "#073642"
         },
         {
-            name: "Solarizado (claro)",
+            name: "Solarized (clear)",
             bg: "#fdf6e3",
             surface: "#eee8d5",
             highlight: "#d0c8b0",
@@ -136,7 +136,7 @@ Item {
             separator: "#d0c8b0"
         },
         {
-            name: "Lluvia violeta",
+            name: "Violet rain",
             bg: "#1a0a2e",
             surface: "#2a1045",
             highlight: "#3d1a60",
@@ -146,7 +146,7 @@ Item {
             separator: "#3a1558"
         },
         {
-            name: "Selenio",
+            name: "Selenium",
             bg: "#1c1c24",
             surface: "#25252f",
             highlight: "#35354a",
