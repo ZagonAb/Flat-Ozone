@@ -16,7 +16,7 @@ Rectangle {
         anchors.top: parent.top
         anchors.left: parent.left
         anchors.right: parent.right
-        height: 1
+        height: vpx(1)
         color: bottomBar.themeSettings ? bottomBar.themeSettings.separatorColor : "#2c2c2c"
         opacity: 0.8
     }
@@ -32,7 +32,7 @@ Rectangle {
             id: _img
             source: iconSource
             anchors.fill: parent
-            sourceSize { width: 64; height: 64 }
+            sourceSize { width: vpx(64); height: vpx(64) }
             visible: false
         }
         ColorOverlay {
@@ -46,7 +46,7 @@ Rectangle {
         id: mainRow
         anchors.verticalCenter: parent.verticalCenter
         anchors.right: parent.right
-        spacing: 20
+        spacing: vpx(20)
 
         Behavior on anchors.rightMargin {
             NumberAnimation { duration: 300; easing.type: Easing.InOutQuad }
@@ -54,7 +54,7 @@ Rectangle {
 
         Row {
             id: settingsApplyRow
-            spacing: 5
+            spacing: vpx(5)
             visible: bottomBar.settingsFocused
             opacity: bottomBar.settingsFocused ? 1.0 : 0.0
             Behavior on opacity { NumberAnimation { duration: 300; easing.type: Easing.InOutQuad } }
@@ -77,7 +77,7 @@ Rectangle {
 
         Row {
             id: detailsRow
-            spacing: 5
+            spacing: vpx(5)
             visible: bottomBar.gameListFocused
             opacity: bottomBar.gameListFocused ? 1.0 : 0.0
             Behavior on opacity { NumberAnimation { duration: 300; easing.type: Easing.InOutQuad } }
@@ -100,7 +100,7 @@ Rectangle {
 
         Row {
             id: favoriteRow
-            spacing: 5
+            spacing: vpx(5)
             visible: bottomBar.gameListFocused
             opacity: bottomBar.gameListFocused ? 1.0 : 0.0
             Behavior on opacity { NumberAnimation { duration: 300; easing.type: Easing.InOutQuad } }
@@ -123,7 +123,7 @@ Rectangle {
 
         Row {
             id: okRow
-            spacing: 5
+            spacing: vpx(5)
             visible: bottomBar.gameListFocused
             opacity: bottomBar.gameListFocused ? 1.0 : 0.0
             Behavior on opacity { NumberAnimation { duration: 300; easing.type: Easing.InOutQuad } }
@@ -146,7 +146,7 @@ Rectangle {
 
         Row {
             id: backRow
-            spacing: 5
+            spacing: vpx(5)
 
             HintIcon {
                 iconSource: "assets/theme-icons/back.png"

@@ -32,11 +32,11 @@ FocusScope {
     Rectangle {
         id: titleSep
         anchors.top: sectionTitle.bottom
-        anchors.topMargin: 6
+        anchors.topMargin: vpx(6)
         anchors.left: parent.left
         anchors.leftMargin: settingsPanel.width * 0.06
         width: settingsPanel.width * 0.88
-        height: 1
+        height: vpx(1)
         color: themeSettings ? themeSettings.separatorColor : "#2c2c2c"
         opacity: 0.8
     }
@@ -76,7 +76,7 @@ FocusScope {
     ListView {
         id: themeList
         anchors.top: titleSep.bottom
-        anchors.topMargin: 4
+        anchors.topMargin: vpx(4)
         anchors.bottom: parent.bottom
         anchors.bottomMargin: settingsPanel.height * 0.04
         anchors.left: parent.left
@@ -107,7 +107,7 @@ FocusScope {
                 font.bold: true
                 anchors.bottom: parent.bottom
                 anchors.left: parent.left
-                anchors.bottomMargin: 6
+                anchors.bottomMargin: vpx(6)
                 anchors.leftMargin: settingsPanel.width * 0.06
             }
 
@@ -117,7 +117,7 @@ FocusScope {
                 anchors.left: parent.left
                 anchors.leftMargin: settingsPanel.width * 0.06
                 width: settingsPanel.width * 0.88
-                height: 1
+                height: vpx(1)
                 color: themeSettings ? themeSettings.separatorColor : "#2c2c2c"
                 opacity: 0.8
             }
@@ -126,9 +126,9 @@ FocusScope {
                 anchors.left: parent.left
                 anchors.leftMargin: settingsPanel.width * 0.06
                 anchors.verticalCenter: parent.verticalCenter
-                width: 3
+                width: vpx(3)
                 height: parent.height * 0.55
-                radius: 1
+                radius: vpx(1)
                 visible: isTheme && isActive
                 color: themeSettings ? themeSettings.accentColor : "#ffffff"
             }
@@ -209,7 +209,7 @@ FocusScope {
                 anchors.left: parent.left
                 anchors.leftMargin: settingsPanel.width * 0.06
                 width: parent.width - settingsPanel.width * 0.12
-                height: 1
+                height: vpx(1)
                 color: themeSettings ? themeSettings.separatorColor : "#2c2c2c"
                 opacity: 0.35
                 visible: !isHeader && index < settingsModel.count - 1

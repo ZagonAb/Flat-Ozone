@@ -22,20 +22,20 @@ ListView {
 
     Row {
         anchors.centerIn: parent
-        spacing: 5
+        spacing: vpx(5)
         visible: gameList.count === 0
 
         Image {
             source: "assets/theme-icons/info2.png"
-            width: 64
-            height: 64
+            width: vpx(64)
+            height: vpx(64)
             anchors.verticalCenter: parent.verticalCenter
-            sourceSize { width: 64; height: 64 }
+            sourceSize { width: vpx(64); height: vpx(64) }
         }
 
         Text {
             text: "No " + gameList.currentCollectionName + " Available"
-            font.pixelSize: 20
+            font.pixelSize: vpx(20)
             color: gameList.themeSettings ? gameList.themeSettings.textPrimary : "#ffffff"
             anchors.verticalCenter: parent.verticalCenter
         }
@@ -43,11 +43,11 @@ ListView {
 
     delegate: Rectangle {
         width: gameList.width
-        height: 50
+        height: vpx(57)
         color: gameList.currentIndex === index && gameList.focus
         ? (gameList.themeSettings ? gameList.themeSettings.highlightColor : "#303030")
         : "transparent"
-        border.width: 2
+        border.width: vpx(2)
         border.color: gameList.currentIndex === index && gameList.focus
         ? (gameList.themeSettings ? gameList.themeSettings.highlightColor : "#303030")
         : "transparent"
@@ -55,13 +55,13 @@ ListView {
 
         Row {
             anchors.centerIn: parent
-            spacing: 10
+            spacing: vpx(10)
 
-            Rectangle { width: 20.0; height: parent.height; color: "transparent" }
+            Rectangle { width: vpx(20); height: parent.height; color: "transparent" }
 
             Item {
-                width: root.width * 0.045
-                height: root.height * 0.045
+                width: root.width * 0.065
+                height: root.height * 0.065
                 anchors.verticalCenter: parent.verticalCenter
 
                 Image {
@@ -86,25 +86,95 @@ ListView {
                 }
             }
 
-            Text {
-                width: gameList.width - 40
-                elide: Text.ElideRight
-                text: model.title
-                font.pixelSize: root.width * 0.012
-                font.family: gameList.fontFamily
-                color: {
-                    var ts = gameList.themeSettings;
-                    var isSelected = gameList.currentIndex === index && gameList.focus;
-                    if (isSelected) return ts ? ts.textPrimary : "#ffffff";
-                    return ts ? ts.textSecondary : "#c0c0c0";
+            Item {
+                    id: gameMarqueeContainer
+                    anchors.verticalCenter: parent.verticalCenter
+                    width: gameList.width - vpx(20) - root.width * 0.065 - vpx(10) - vpx(20) - vpx(16)
+                    height: gameMarqueeText1.height
+                    clip: true
+
+                    property bool isSelected: gameList.currentIndex === index && gameList.focus
+                    property bool needsScroll: gameMarqueeText1.implicitWidth > gameMarqueeContainer.width
+                    property real scrollOffset: 0
+                    property real cycleWidth: gameMarqueeText1.implicitWidth + gameMarqueeSep.implicitWidth
+
+                    function textColor() {
+                        var ts = gameList.themeSettings;
+                        if (isSelected) return ts ? ts.textPrimary : "#ffffff";
+                        return ts ? ts.textSecondary : "#c0c0c0";
+                    }
+
+                    Text {
+                        id: gameMarqueeText1
+                        text: model.title
+                        font.pixelSize: root.width * 0.016
+                        font.family: gameList.fontFamily
+                        color: gameMarqueeContainer.textColor()
+                        elide: gameMarqueeContainer.isSelected ? Text.ElideNone : Text.ElideRight
+                        width: gameMarqueeContainer.isSelected ? implicitWidth : gameMarqueeContainer.width
+                        x: -gameMarqueeContainer.scrollOffset
+                        y: 0
+                    }
+
+                    Text {
+                        id: gameMarqueeSep
+                        text: "  •  "
+                        font.pixelSize: root.width * 0.016
+                        font.family: gameList.fontFamily
+                        color: gameMarqueeContainer.textColor()
+                        elide: Text.ElideNone
+                        x: gameMarqueeText1.implicitWidth - gameMarqueeContainer.scrollOffset
+                        y: 0
+                        visible: gameMarqueeContainer.needsScroll
+                    }
+
+                    Text {
+                        id: gameMarqueeText2
+                        text: model.title
+                        font.pixelSize: root.width * 0.016
+                        font.family: gameList.fontFamily
+                        color: gameMarqueeContainer.textColor()
+                        elide: Text.ElideNone
+                        x: gameMarqueeText1.implicitWidth + gameMarqueeSep.implicitWidth - gameMarqueeContainer.scrollOffset
+                        y: 0
+                        visible: gameMarqueeContainer.needsScroll
+                    }
+
+                    NumberAnimation {
+                        id: gameMarqueeAnim
+                        target: gameMarqueeContainer
+                        property: "scrollOffset"
+                        from: 0
+                        to: gameMarqueeContainer.cycleWidth
+                        duration: gameMarqueeContainer.cycleWidth * 22
+                        easing.type: Easing.Linear
+                        loops: Animation.Infinite
+                        running: false
+                    }
+
+                    onIsSelectedChanged: {
+                        gameMarqueeContainer.scrollOffset = 0;
+                        gameMarqueeAnim.stop();
+                        if (isSelected && needsScroll) {
+                            gameMarqueeAnim.start();
+                        }
+                    }
+
+                    onNeedsScrollChanged: {
+                        if (isSelected && needsScroll) {
+                            gameMarqueeContainer.scrollOffset = 0;
+                            gameMarqueeAnim.start();
+                        } else {
+                            gameMarqueeAnim.stop();
+                            gameMarqueeContainer.scrollOffset = 0;
+                        }
+                    }
                 }
-                anchors.verticalCenter: parent.verticalCenter
-            }
         }
 
         Rectangle {
             width: parent.width
-            height: 1
+            height: vpx(1)
             color: gameList.themeSettings ? gameList.themeSettings.separatorColor : "#2c2c2c"
             opacity: 0.4
             visible: index !== gameList.count - 1

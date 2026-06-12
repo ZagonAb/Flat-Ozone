@@ -13,10 +13,10 @@ Rectangle {
         hideTimer.restart();
     }
 
-    width: 350
-    height: 50
+    width: vpx(350)
+    height: vpx(50)
     color: themeSettings ? themeSettings.highlightColor : "#303030"
-    radius: 4
+    radius: vpx(4)
     visible: false
     opacity: 1
     z: 1
@@ -25,29 +25,29 @@ Rectangle {
         anchors.left: parent.left
         anchors.top: parent.top
         anchors.bottom: parent.bottom
-        width: 3
-        radius: 2
+        width: vpx(3)
+        radius: vpx(2)
         color: notificationBar.themeSettings ? notificationBar.themeSettings.accentColor : "#ffffff"
     }
 
     Row {
-        spacing: 10
+        spacing: vpx(10)
         anchors.centerIn: parent
 
         Image {
             source: "assets/theme-icons/info.png"
             anchors.verticalCenter: parent.verticalCenter
-            width: 24
-            height: 24
+            width: vpx(24)
+            height: vpx(24)
             smooth: true
-            sourceSize { width: 40; height: 40 }
+            sourceSize { width: vpx(40); height: vpx(40) }
         }
 
         Text {
             id: notificationText
             text: ""
             color: notificationBar.themeSettings ? notificationBar.themeSettings.textPrimary : "#ffffff"
-            font.pixelSize: 24
+            font.pixelSize: vpx(24)
             verticalAlignment: Text.AlignVCenter
         }
     }

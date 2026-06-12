@@ -15,7 +15,7 @@ Rectangle {
         anchors.bottom: parent.bottom
         anchors.left: parent.left
         anchors.right: parent.right
-        height: 1
+        height: vpx(1)
         color: topBar.themeSettings ? topBar.themeSettings.separatorColor : "#2c2c2c"
         opacity: 0.8
     }
@@ -23,18 +23,18 @@ Rectangle {
     Row {
         anchors.verticalCenter: parent.verticalCenter
         anchors.left: parent.left
-        spacing: 10
+        spacing: vpx(10)
 
         Item {
-            width: 50
-            height: 50
+            width: vpx(50)
+            height: vpx(50)
             anchors.verticalCenter: parent.verticalCenter
 
             Image {
                 id: pegasusLogo
                 source: "assets/theme-icons/pegasus.png"
-                width: 50
-                height: 50
+                width: vpx(50)
+                height: vpx(50)
                 mipmap: true
                 anchors.verticalCenter: parent.verticalCenter
                 visible: false
@@ -61,11 +61,11 @@ Rectangle {
     Row {
         anchors.verticalCenter: parent.verticalCenter
         anchors.right: parent.right
-        spacing: 10
+        spacing: vpx(10)
 
         Row {
             id: clockRow
-            spacing: 5
+            spacing: vpx(5)
 
             Timer {
                 id: clockTimer
@@ -85,17 +85,17 @@ Rectangle {
             }
 
             Item {
-                width: 20
-                height: 20
+                width: vpx(20)
+                height: vpx(20)
                 anchors.verticalCenter: parent.verticalCenter
 
                 Image {
                     id: clockIcon
                     source: "assets/theme-icons/clock.png"
-                    width: 20
-                    height: 20
+                    width: vpx(20)
+                    height: vpx(20)
                     anchors.verticalCenter: parent.verticalCenter
-                    sourceSize { width: 20; height: 20 }
+                    sourceSize { width: vpx(20); height: vpx(20) }
                     visible: false
                 }
                 ColorOverlay {
@@ -108,7 +108,7 @@ Rectangle {
 
         Row {
             id: batteryRow
-            spacing: 5
+            spacing: vpx(5)
 
             Text {
                 text: isNaN(api.device.batteryPercent)

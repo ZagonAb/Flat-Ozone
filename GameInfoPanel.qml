@@ -30,7 +30,7 @@ Rectangle {
 
         Image {
             id: pegasusTitle
-            anchors.topMargin: 10
+            anchors.topMargin: vpx(10)
             anchors.top: parent.top
             anchors.horizontalCenter: parent.horizontalCenter
             source: "assets/theme-icons/pegasus-title.png"
@@ -39,7 +39,7 @@ Rectangle {
             width: parent.width * 0.85
             height: parent.height * 0.40
             visible: infoPanel.showLogo
-            sourceSize { width: 356; height: 356 }
+            sourceSize { width: vpx(356); height: vpx(356) }
             layer.enabled: true
             layer.effect: ColorOverlay {
                 color: infoPanel.themeSettings ? infoPanel.themeSettings.accentColor : "#ffffff"
@@ -48,7 +48,7 @@ Rectangle {
 
         Item {
             id: boxFrontContainer
-            anchors.topMargin: 10
+            anchors.topMargin: vpx(10)
             anchors.top: parent.top
             anchors.horizontalCenter: parent.horizontalCenter
             width: parent.width * 0.85
@@ -62,20 +62,20 @@ Rectangle {
                 ? infoPanel.selectedGame.assets[infoPanel.currentImageType]
                 : ""
                 fillMode: Image.PreserveAspectFit
-                sourceSize { width: 456; height: 456 }
+                sourceSize { width: vpx(456); height: vpx(456) }
                 visible: status === Image.Ready
             }
 
             Image {
                 id: noFoundImage
-                anchors.topMargin: 10
+                anchors.topMargin: vpx(10)
                 anchors.top: parent.top
                 anchors.horizontalCenter: parent.horizontalCenter
                 source: "assets/theme-icons/nofound.png"
                 fillMode: Image.PreserveAspectFit
                 width: parent.width * 0.90
                 height: parent.height * 0.60
-                sourceSize { width: 200; height: 200 }
+                sourceSize { width: vpx(200); height: vpx(200) }
                 visible: boxFrontImage.status !== Image.Ready
                 layer.enabled: true
                 layer.effect: ColorOverlay {
@@ -87,10 +87,10 @@ Rectangle {
         Column {
             anchors.bottom: parent.bottom
             anchors.left: parent.left
-            anchors.leftMargin: 20
-            anchors.bottomMargin: 30
-            spacing: 10
-            width: parent.width - 40
+            anchors.leftMargin: vpx(20)
+            anchors.bottomMargin: vpx(30)
+            spacing: vpx(10)
+            width: parent.width - vpx(40)
 
             Text {
                 text: "Games:\n" + (infoPanel.gameCount > 0
